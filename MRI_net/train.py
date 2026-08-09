@@ -59,7 +59,7 @@ def train_model(
             optimizer.zero_grad()
             logits, recon = model(images)
             cls_loss = cls_criterion(logits, labels)
-            recon_loss = recon_criterion(recon.detach(), images)
+            recon_loss = recon_criterion(recon, images)  #removed .detach() from here
             loss = config.CLS_LOSS_WEIGHT * cls_loss + config.RECON_LOSS_WEIGHT * recon_loss
             loss.backward()
             optimizer.step()
