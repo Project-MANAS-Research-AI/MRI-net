@@ -41,7 +41,7 @@ def train_model(
 ) -> dict:
     cls_criterion = nn.CrossEntropyLoss()
     recon_criterion = nn.MSELoss()
-    optimizer = optim.Adam(model.parameters(), lr=config.LEARNING_RATE, weight_decay=config.WEIGHT_DECAY)
+    optimizer = optim.AdamW(model.parameters(), lr=config.LEARNING_RATE, weight_decay=config.WEIGHT_DECAY) #Changed to AdamW to avoid overfitting.
     scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode="max", factor=0.5, patience=2)
 
     history = {"train_acc": [], "val_acc": [], "train_cls_loss": [], "train_recon_loss": []}
