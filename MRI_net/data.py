@@ -12,7 +12,7 @@ def get_class_names(train_dir: str = config.TRAIN_DIR) -> list:
             f"Training folder not found at {train_dir}. "
             "Set BRAIN_MRI_DATA_ROOT to the correct dataset location."
         )
-    return os.listdir(train_dir)
+    return sorted(os.listdir(train_dir))  #this function right here, actually returns a random order of the image classes
 
 
 def get_transforms(train: bool) -> transforms.Compose:
@@ -34,6 +34,9 @@ def build_datasets(class_names: list):
         raise ValueError("Class order mismatch -- ImageFolder order must match class_names.")
 
     return train_dataset, test_dataset
+    
+#And ImageFolder labels by sorted order.
+#So get_class_names and ImageFolder image class order disagree. So a sorted function will fix it.
 
 
 def build_dataloaders(train_dataset, test_dataset):
